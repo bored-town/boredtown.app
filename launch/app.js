@@ -17,7 +17,7 @@ $('#connect').click(async _ => {
   signer = await provider.getSigner();
 
   // switch chain
-  await switch_opbnb_chain();
+  await switch_chain();
 
   // get remaining qty
   let minted_qty = await reader.getFunction('numberMinted').staticCall(signer.address)
@@ -89,7 +89,7 @@ function update_supply() {
     $('#supply').html(`Minted: ${minted}/${MAX_SUPPLY}`);
   });
 }
-async function switch_opbnb_chain() {
+async function switch_chain() {
   // https://docs.metamask.io/wallet/reference/wallet_addethereumchain/
   // https://ethereum.stackexchange.com/questions/134610/metamask-detectethereumprovider-check-is-connected-to-specific-chain
   let { chainId } = await provider.getNetwork();
