@@ -31,6 +31,18 @@ $('#connect').click(async _ => {
     .text(`Disconnect ${short_addr(signer.address)}`)
     .removeClass('d-none');
 
+  // check WL
+  if (WHITELIST_SRC != null) {
+    let wl_addrs = (await $.get(WHITELIST_SRC)).split('\n').map(l => l.split(',')[0].toLowerCase());
+    let mm_addr = signer.address.toLowerCase();
+    let pass = wl_addrs.includes(mm_addr);
+    // console.log(wl_addrs, mm_addr, pass);
+    if (!pass) {
+      $('#wlonly').removeClass('d-none');
+      return;
+    }
+  }
+
   // 1) mintable
   if (remaining_qty > 0) {
     $('#mint')
@@ -47,6 +59,7 @@ $('#disconnect').click(_ => {
   $('#connect').removeClass('d-none');
   $('#mint').addClass('d-none');
   $('#minted').addClass('d-none');
+  $('#wlonly').addClass('d-none');
   $('#disconnect').addClass('d-none');
 });
 
