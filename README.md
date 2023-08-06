@@ -1,0 +1,1 @@
+# boredtown.app
