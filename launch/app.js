@@ -4,6 +4,7 @@ let signer = null;
 let wallet = null;
 let contract = null;
 let reader = new ethers.Contract(CONTRACT_ADDR, CONTRACT_ABI, new ethers.JsonRpcProvider(CHAIN_RPC));
+let minted_out = false;
 
 // main
 update_supply();
@@ -72,7 +73,6 @@ $('#mint').click(_ => {
   contract.getFunction('mint').send(qty)
     .then(_ => {
       play_party_effect();
-      update_supply();
       $('#mint').addClass('d-none');
       $('#minted').removeClass('d-none');
     })
@@ -84,12 +84,14 @@ $('#mint').click(_ => {
 
 // reconnect when switch account
 window.ethereum.on('accountsChanged', function (accounts) {
+  if (minted_out) return;
   $('#disconnect').click();
   $('#connect').click();
 });
 
 // disconnect when switch chain
 window.ethereum.on('chainChanged', function (networkId) {
+  if (minted_out) return;
   if (parseInt(networkId) == CHAIN_ID) return;
   $('#disconnect').click();
 });
@@ -100,6 +102,15 @@ function update_supply() {
   reader.getFunction('remainingSupply').staticCall().then(remain => {
     let minted = MAX_SUPPLY - parseInt(remain);
     $('#supply').html(`Minted: ${minted}/${MAX_SUPPLY}`);
+    // minted out ?
+    minted_out = minted >= MAX_SUPPLY;
+    if (!minted_out) {
+      $('#connect').removeClass('disabled');
+    }
+    else {
+      $('#connect').addClass('d-none');
+      $('#mintedout').removeClass('d-none');
+    }
   });
 }
 async function switch_chain() {
