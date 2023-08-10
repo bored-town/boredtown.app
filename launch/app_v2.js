@@ -22,11 +22,13 @@ $('#connect').click(async _ => {
   await switch_chain();
 
   // 1) check mint enabled
+  /* reduce page load
   let mint_enabled = await reader.getFunction('mintEnabled').staticCall();
   if (!mint_enabled) {
     show_mint_disabled();
     return;
   }
+  */
 
   // 2) check whitelist
   if (WHITELIST_SRC != null) {
