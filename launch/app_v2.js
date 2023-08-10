@@ -4,6 +4,7 @@ let signer = null;
 let wallet = null;
 let contract = null;
 let reader = new ethers.Contract(CONTRACT_ADDR, CONTRACT_ABI, new ethers.JsonRpcProvider(CHAIN_RPC));
+let rsupply = MAX_SUPPLY;
 let minted_out = false;
 
 // main
@@ -23,7 +24,6 @@ $('#connect').click(async _ => {
   // 1) check mint enabled
   let mint_enabled = await reader.getFunction('mintEnabled').staticCall();
   if (!mint_enabled) {
-    $('#connect').addClass('d-none');
     show_mint_disabled();
     return;
   }
@@ -35,7 +35,6 @@ $('#connect').click(async _ => {
     let pass = wl_addrs.includes(mm_addr);
     // console.log(wl_addrs, mm_addr, pass);
     if (!pass) {
-      $('#connect').addClass('d-none');
       show_wl_only();
       return;
     }
@@ -43,12 +42,11 @@ $('#connect').click(async _ => {
 
   // get remaining qty
   let minted_qty = await reader.getFunction('numberMinted').staticCall(signer.address);
-  let remaining_qty = MINT_PER_WALLET - parseInt(minted_qty);
+  let remaining_qty = Math.min(MINT_PER_WALLET - parseInt(minted_qty), rsupply);
 
   // update connect/disconnect buttons
   $('#connect')
     .addClass('d-none')
-    .removeClass('disabled');
   $('#disconnect')
     .text(`Disconnect ${short_addr(signer.address)}`)
     .removeClass('d-none');
@@ -66,7 +64,9 @@ $('#connect').click(async _ => {
   }
 });
 $('#disconnect').click(_ => {
-  $('#connect').removeClass('d-none');
+  $('#connect')
+    .removeClass('disabled')
+    .removeClass('d-none');
   $('#mint').addClass('d-none');
   $('#msg').addClass('d-none');
   $('#disconnect').addClass('d-none');
@@ -107,18 +107,16 @@ window.ethereum.on('chainChanged', function (networkId) {
 // web3 functions
 function update_supply() {
   $('#supply').html('Minted: ...');
-  reader.getFunction('remainingSupply').staticCall().then(remain => {
-    let minted = MAX_SUPPLY - parseInt(remain);
+  reader.getFunction('remainingSupply').staticCall().then(s => {
+    rsupply = parseInt(s);
+    let minted = MAX_SUPPLY - parseInt(rsupply);
     $('#supply').html(`Minted: ${minted}/${MAX_SUPPLY}`);
     // minted out ?
     minted_out = minted >= MAX_SUPPLY;
-    if (!minted_out) {
+    if (!minted_out)
       $('#connect').removeClass('disabled');
-    }
-    else {
-      $('#connect').addClass('d-none');
+    else
       show_minted_out();
-    }
   });
 }
 async function switch_chain() {
@@ -181,7 +179,10 @@ function play_party_effect() {
       size: 2,
   });
 }
-let show_msg = msg => $('#msg').text(msg).removeClass('d-none');
+function show_msg(msg) {
+  $('#msg').text(msg).removeClass('d-none');
+  $('#connect').addClass('d-none');
+}
 let show_minted = _ => show_msg('MINTED');
 let show_wl_only = _ => show_msg("You're not eligible");
 let show_minted_out = _ => show_msg('MINTED OUT');
