@@ -10,6 +10,10 @@ let minted_out = false;
 // main
 update_supply();
 
+// enable tooltips
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
 // connect button
 $('#connect').click(async _ => {
   $('#connect').addClass('disabled');
