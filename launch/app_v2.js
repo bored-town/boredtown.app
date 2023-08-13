@@ -32,7 +32,8 @@ $('#connect').click(async _ => {
 
   // 2) check whitelist
   if (WHITELIST_SRC != null) {
-    let wl_addrs = (await $.get(WHITELIST_SRC)).split('\n').map(l => l.split(',')[0].toLowerCase());
+    let url = WHITELIST_SRC + `?t=${+(new Date())}`;
+    let wl_addrs = (await $.get(url)).split('\n').map(l => l.split(',')[0].toLowerCase());
     let mm_addr = signer.address.toLowerCase();
     let pass = wl_addrs.includes(mm_addr);
     // console.log(wl_addrs, mm_addr, pass);
