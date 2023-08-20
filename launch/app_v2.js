@@ -74,7 +74,9 @@ $('#disconnect').click(_ => {
   $('#connect')
     .removeClass('disabled')
     .removeClass('d-none');
-  $('#mint').addClass('d-none');
+  $('#mint')
+    .removeClass('disabled')
+    .addClass('d-none');
   $('#msg').addClass('d-none');
   $('#disconnect').addClass('d-none');
 });
