@@ -11,3 +11,4 @@ const MINT_PER_WALLET = 5;
 const WHITELIST_SRC   = null;
 const MINT_SECRET     = "ILOVEMINTDOTFUN"; // TODO change to merkle tree
 const CONTRACT_ADDR   = "0xd6C13D9A50Fc4e0fC19e584796e36Ae2Fc6ec6C2";
+const MINT_GAS_RATE   = 1;
