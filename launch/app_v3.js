@@ -87,7 +87,7 @@ $('#mint').click(async _ => {
   // mint
   let qty = +$('#mint').attr('qty');
   contract = new ethers.Contract(CONTRACT_ADDR, CONTRACT_ABI, signer);
-  mint_by_gas_rate(contract, qty, MINT_SECRET, MINT_GAS_RATE)
+  mint_by_gas_rate(contract, qty, [], MINT_GAS_RATE) // TODO [] => proof
     .then(_ => {
       play_party_effect();
       $('#mint').addClass('d-none');
@@ -177,13 +177,13 @@ async function switch_chain() {
     });
   }
 }
-async function mint_by_gas_rate(contract, qty, secret, gas_rate=1) {
+async function mint_by_gas_rate(contract, qty, proof, gas_rate=1) {
   if (gas_rate == 1) {
-    return contract.getFunction('mint').send(qty, secret)
+    return contract.getFunction('mint').send(qty, proof)
   }
   else {
     let mint_fn = contract.getFunction('mint');
-    let params = [ qty, secret ];
+    let params = [ qty, proof ];
     let gas_limit = await mint_fn.estimateGas(...params);
     gas_limit = Math.ceil(Number(gas_limit) * gas_rate);
     return mint_fn.send(...params, { gasLimit: gas_limit })
