@@ -50,7 +50,11 @@
         <!-- description -->
         <p class="card-text">xxx yyy zzz</p>
         <a id="connect" class="btn btn-primary w-100 disabled">Connect Wallet</a>
-        <a id="mint" class="btn btn-primary w-100 d-none">MINT</a>
+        <a id="mint" class="btn btn-primary w-100 d-none">Mint</a>
+        <button id="minting" class="btn btn-primary w-100 d-none" type="button" disabled>
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+          Processing
+        </button>
         <a id="msg" class="btn btn-primary w-100 d-none disabled"></a>
         <div class="text-center mt-2"><a id="disconnect" class="text-secondary-emphasis d-none" role="button">Disconnect 0xabc..789</a></div>
       </div>

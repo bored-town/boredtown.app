@@ -61,7 +61,7 @@ $('#connect').click(async _ => {
   // 1) mintable
   if (remaining_qty > 0) {
     $('#mint')
-      .text(`MINT x${remaining_qty} (FREE)`)
+      .text(`Mint x${remaining_qty} (Free)`)
       .attr('qty', remaining_qty)
       .removeClass('d-none');
   }
@@ -77,25 +77,38 @@ $('#disconnect').click(_ => {
   $('#mint')
     .removeClass('disabled')
     .addClass('d-none');
+  $('#minting').addClass('d-none');
   $('#msg').addClass('d-none');
   $('#disconnect').addClass('d-none');
 });
 
 // mint button
 $('#mint').click(async _ => {
-  $('#mint').addClass('disabled');
+  $('#mint').addClass('d-none');
+  $('#minting').removeClass('d-none');
   // mint
   let qty = +$('#mint').attr('qty');
   contract = new ethers.Contract(CONTRACT_ADDR, CONTRACT_ABI, signer);
   mint_by_gas_rate(contract, qty, [], MINT_GAS_RATE) // TODO [] => proof
-    .then(_ => {
+    .then(tx => {
+      console.log(tx);
+      return tx.wait();
+    })
+    .then(receipt => { // https://docs.ethers.org/v6/api/providers/#TransactionReceipt
+      console.log(receipt);
+      $('#minting').addClass('d-none');
+      if (receipt.status != 1) { // 1 success, 0 revert
+        alert(JSON.stringify(receipt.toJSON()));
+        $('#mint').removeClass('d-none');
+        return;
+      }
       play_party_effect();
-      $('#mint').addClass('d-none');
       show_minted();
     })
     .catch(e => {
       alert(e);
-      $('#mint').removeClass('disabled');
+      $('#mint').removeClass('d-none');
+      $('#minting').addClass('d-none');
     });
 });
 
@@ -204,7 +217,7 @@ function show_msg(msg) {
   $('#msg').text(msg).removeClass('d-none');
   $('#connect').addClass('d-none');
 }
-let show_minted = _ => show_msg('MINTED');
+let show_minted = _ => show_msg('Minted');
 let show_wl_only = _ => show_msg("You're not eligible");
-let show_minted_out = _ => show_msg('MINTED OUT');
+let show_minted_out = _ => show_msg('Minted Out');
 let show_mint_disabled = _ => show_msg('Mint disabled');
