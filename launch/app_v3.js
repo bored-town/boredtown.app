@@ -179,14 +179,14 @@ async function switch_chain() {
 }
 async function mint_by_gas_rate(contract, qty, proof, gas_rate=1) {
   if (gas_rate == 1) {
-    return contract.getFunction('mint').send(qty, proof)
+    return contract.getFunction('mint').send(qty, proof);
   }
   else {
     let mint_fn = contract.getFunction('mint');
     let params = [ qty, proof ];
     let gas_limit = await mint_fn.estimateGas(...params);
     gas_limit = Math.ceil(Number(gas_limit) * gas_rate);
-    return mint_fn.send(...params, { gasLimit: gas_limit })
+    return mint_fn.send(...params, { gasLimit: gas_limit });
   }
 }
 
