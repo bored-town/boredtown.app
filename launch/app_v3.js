@@ -9,6 +9,7 @@ let minted_out = false;
 
 // main
 update_supply();
+let tweet_modal = new bootstrap.Modal($('.modal')[0]);
 
 // enable tooltips
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -80,6 +81,7 @@ $('#disconnect').click(_ => {
   $('#minting').addClass('d-none');
   $('#msg').addClass('d-none');
   $('#disconnect').addClass('d-none');
+  tweet_modal.hide();
 });
 
 // mint button
@@ -102,6 +104,7 @@ $('#mint').click(async _ => {
         $('#mint').removeClass('d-none');
         return;
       }
+      tweet_modal.show();
       play_party_effect();
       show_minted();
     })
