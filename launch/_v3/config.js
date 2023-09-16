@@ -12,3 +12,6 @@ const WHITELIST_SRC   = null;
 const MINT_SECRET     = "ILOVEMINTDOTFUN"; // TODO change to merkle tree
 const CONTRACT_ADDR   = "0xd6C13D9A50Fc4e0fC19e584796e36Ae2Fc6ec6C2";
 const MINT_GAS_RATE   = 1;
+
+// twitter
+const TWEET_TEXT      = "I just minted #grantisnewairdrop on @boredtownnft launchpad. https://boredtown.app/test/grant-is-new-airdrop";

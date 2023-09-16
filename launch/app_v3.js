@@ -10,6 +10,7 @@ let minted_out = false;
 // main
 update_supply();
 let tweet_modal = new bootstrap.Modal($('.modal')[0]);
+$('.btn-tweet').attr('href', 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(TWEET_TEXT));
 
 // enable tooltips
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
