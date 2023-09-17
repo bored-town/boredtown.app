@@ -9,9 +9,11 @@ const CHAIN_EXPLORER  = "https://sepolia.etherscan.io";
 const MAX_SUPPLY      = 10_000;
 const MINT_PER_WALLET = 5;
 const WHITELIST_SRC   = null;
-const MINT_SECRET     = "ILOVEMINTDOTFUN"; // TODO change to merkle tree
 const CONTRACT_ADDR   = "0xd6C13D9A50Fc4e0fC19e584796e36Ae2Fc6ec6C2";
 const MINT_GAS_RATE   = 1;
+
+// whitelist
+const PROOF_URL       = "https://diewland.github.io/proof-cdn/_v3/"; // null = public
 
 // twitter
 const TWEET_TEXT      = "I just minted #grantisnewairdrop on @boredtownnft launchpad. https://boredtown.app/test/grant-is-new-airdrop";
