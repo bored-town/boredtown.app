@@ -9,7 +9,7 @@ const CHAIN_EXPLORER  = "https://sepolia.etherscan.io";
 const MAX_SUPPLY      = 10_000;
 const MINT_PER_WALLET = 5;
 const WHITELIST_SRC   = null;
-const CONTRACT_ADDR   = "0xd6C13D9A50Fc4e0fC19e584796e36Ae2Fc6ec6C2";
+const CONTRACT_ADDR   = "0x1237120B6F81c52baef46Bc491bFd0267c28b17b";
 const MINT_GAS_RATE   = 1;
 
 // whitelist
