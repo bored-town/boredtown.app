@@ -62,11 +62,8 @@ $('#connect').click(async _ => {
   let remaining_qty = Math.min(MINT_PER_WALLET - parseInt(minted_qty), rsupply);
 
   // update connect/disconnect buttons
-  $('#connect')
-    .addClass('d-none')
-  $('#disconnect')
-    .text(`Disconnect ${short_addr(signer.address)}`)
-    .removeClass('d-none');
+  hide_connect();
+  show_disconnect();
 
   // 1) mintable
   if (remaining_qty > 0) {
@@ -225,11 +222,20 @@ function play_party_effect() {
       size: 2,
   });
 }
-function show_msg(msg) {
+function show_msg(msg, auto=false) {
+  hide_connect();
   $('#msg').text(msg).removeClass('d-none');
-  $('#connect').addClass('d-none');
+  if (auto) show_disconnect();
+}
+function hide_connect() {
+  return $('#connect').addClass('d-none');
+}
+function show_disconnect() {
+  let btn = $('#disconnect').removeClass('d-none');
+  if (signer != null) btn.text(`Disconnect ${short_addr(signer.address)}`);
+  return btn;
 }
 let show_minted = _ => show_msg('Minted');
-let show_wl_only = _ => show_msg("You're not eligible");
+let show_wl_only = _ => show_msg("You're not eligible", true);
 let show_minted_out = _ => show_msg('Minted Out');
 let show_mint_disabled = _ => show_msg('Mint disabled');
