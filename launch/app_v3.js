@@ -6,6 +6,8 @@ let contract = null;
 let reader = new ethers.Contract(CONTRACT_ADDR, CONTRACT_ABI, new ethers.JsonRpcProvider(CHAIN_RPC));
 let rsupply = MAX_SUPPLY;
 let minted_out = false;
+let addr_proof = [];
+let proof_cache = {};
 
 // main
 update_supply();
@@ -37,12 +39,18 @@ $('#connect').click(async _ => {
   */
 
   // 2) check whitelist
-  if (WHITELIST_SRC != null) {
-    let url = WHITELIST_SRC + `?t=${+(new Date())}`;
-    let wl_addrs = (await $.get(url)).split('\n').map(l => l.split(',')[0].toLowerCase());
+  if (PROOF_URL != null) {
     let mm_addr = signer.address.toLowerCase();
-    let pass = wl_addrs.includes(mm_addr);
-    // console.log(wl_addrs, mm_addr, pass);
+    let c1 = mm_addr[2]; // 0x[_]
+    let proofs = proof_cache[c1];
+    if (!proofs) {
+      let url = PROOF_URL + `${c1}.json?t=${+(new Date())}`;
+      proofs = await $.get(url);
+      proof_cache[c1] = proofs;
+    }
+    addr_proof = proofs[mm_addr] || [];
+    let pass = addr_proof.length > 0;
+    console.log(addr_proof, proof_cache);
     if (!pass) {
       show_wl_only();
       return;
@@ -92,7 +100,7 @@ $('#mint').click(async _ => {
   // mint
   let qty = +$('#mint').attr('qty');
   contract = new ethers.Contract(CONTRACT_ADDR, CONTRACT_ABI, signer);
-  mint_by_gas_rate(contract, qty, [], MINT_GAS_RATE) // TODO [] => proof
+  mint_by_gas_rate(contract, qty, addr_proof, MINT_GAS_RATE)
     .then(tx => {
       console.log(tx);
       return tx.wait();
