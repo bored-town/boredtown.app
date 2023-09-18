@@ -17,4 +17,6 @@ const PROOF_URL       = "https://diewland.github.io/proof-cdn/wally/";
 // twitter
 const TWEET_TEXT      = `I just minted Tripster x Wally from @Tripster_live via @TheBoredStudio!
 
-Mint yours at https://boredtown.app/launch/tripsterwally-base and unlock bonus Lucky Box and $TRIP airdrop at https://galxe.com/tripstertravelpass. Don't miss out!`;
+Mint yours and unlock bonus Lucky Box and $TRIP airdrop at https://galxe.com/tripstertravelpass
+
+Minting link: https://boredtown.app/launch/tripsterwally-base/`;
