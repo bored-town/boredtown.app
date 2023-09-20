@@ -45,7 +45,13 @@ $('#connect').click(async _ => {
     let proofs = proof_cache[c1];
     if (!proofs) {
       let url = PROOF_URL + `${c1}.json?t=${+(new Date())}`;
-      proofs = await $.get(url);
+      try {
+        proofs = await $.get(url);
+      }
+      catch (err) {
+        console.error(err);
+        proofs = {};
+      }
       proof_cache[c1] = proofs;
     }
     addr_proof = proofs[mm_addr] || [];
