@@ -9,6 +9,8 @@ let minted_out = false;
 
 // main
 update_supply();
+let tweet_modal = new bootstrap.Modal($('.modal')[0]);
+$('.btn-tweet').attr('href', 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(TWEET_TEXT));
 
 // enable tooltips
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -79,6 +81,7 @@ $('#disconnect').click(_ => {
     .addClass('d-none');
   $('#msg').addClass('d-none');
   $('#disconnect').addClass('d-none');
+  tweet_modal.hide();
 });
 
 // mint button
@@ -89,6 +92,7 @@ $('#mint').click(_ => {
   contract = new ethers.Contract(CONTRACT_ADDR, CONTRACT_ABI, signer);
   contract.getFunction('mint').send(qty, MINT_SECRET)
     .then(_ => {
+      tweet_modal.show();
       play_party_effect();
       $('#mint').addClass('d-none');
       show_minted();

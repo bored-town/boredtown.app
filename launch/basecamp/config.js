@@ -11,3 +11,6 @@ const MINT_PER_WALLET = 3;
 const WHITELIST_SRC   = "https://diewland.github.io/proof-cdn/v2/basecamp.csv"; // null = public
 const MINT_SECRET     = "ILOVEMINTDOTFUN";
 const CONTRACT_ADDR   = "0x9adaE68E13da61543c6Ef4695617DAa03f07a05d";
+
+// twitter
+const TWEET_TEXT      = `I just minted BASE CAMP on @boredtownnft launchpad. https://boredtown.app/launch/basecamp`;
