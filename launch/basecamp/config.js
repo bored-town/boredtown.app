@@ -13,4 +13,8 @@ const MINT_SECRET     = "ILOVEMINTDOTFUN";
 const CONTRACT_ADDR   = "0x9adaE68E13da61543c6Ef4695617DAa03f07a05d";
 
 // twitter
-const TWEET_TEXT      = `I just minted BASE CAMP on @boredtownnft launchpad. https://boredtown.app/launch/basecamp`;
+const TWEET_TEXT      = `I just minted Base Camp from @basecamp_cat via @TheBoredStudio! 
+
+Mint yours and unlock a Lucky Box at https://nft.tripster.live/invitation/64f9d01d3b0b0b47ab2f229f
+
+Minting link: https://boredtown.app/launch/basecamp/`;
