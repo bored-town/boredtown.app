@@ -12,7 +12,7 @@ const CONTRACT_ADDR   = "0x5dD89771B6589228dBFaa8ecFc5Bdc2e4652E78f";
 const MINT_GAS_RATE   = 1;
 
 // whitelist
-const PROOF_URL       = null; // TODO "https://diewland.github.io/proof-cdn/sonocrew/";
+const PROOF_URL       = "https://diewland.github.io/proof-cdn/sonocrew/"; // null -- public
 
 // twitter
 const TWEET_TEXT      = `I just minted Sono Crew from @sonoson12 via @TheBoredStudio ! 
