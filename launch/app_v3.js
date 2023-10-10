@@ -205,7 +205,7 @@ async function switch_chain() {
   }
   // if chain not found, add chain
   catch(error) {
-    if (error.code == 4902) { // chain not added
+    if ([-32603, 4902].includes(error.code)) { // chain not added
       try {
         await window.ethereum.request({
           "method": "wallet_addEthereumChain",
