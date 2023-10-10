@@ -8,6 +8,7 @@ let rsupply = MAX_SUPPLY;
 let minted_out = false;
 let addr_proof = [];
 let proof_cache = {};
+let raw_chain_id = null;
 
 // main
 update_supply();
@@ -27,7 +28,10 @@ $('#connect').click(async _ => {
   signer = await provider.getSigner();
 
   // switch chain
-  await switch_chain();
+  let changed = await switch_chain();
+  if (changed) return;
+
+  console.log('💬', 'connecting wallet..');
 
   // 1) check mint enabled
   /* reduce page load
@@ -98,6 +102,12 @@ $('#disconnect').click(_ => {
 
 // mint button
 $('#mint').click(async _ => {
+  // recheck chain before mint
+  let [ok, msg] = await validate_chain();
+  if (!ok) {
+    alert(msg);
+    return;
+  }
   $('#mint').addClass('d-none');
   $('#minting').removeClass('d-none');
   // mint
@@ -130,15 +140,18 @@ $('#mint').click(async _ => {
 // reconnect when switch account
 window.ethereum.on('accountsChanged', function (accounts) {
   if (minted_out) return;
+  console.log('💬', 'changed account');
   $('#disconnect').click();
-  $('#connect').click();
+  is_chain_ready(_ => $('#connect').click());
 });
 
 // disconnect when switch chain
 window.ethereum.on('chainChanged', function (networkId) {
+  raw_chain_id = networkId;
   if (minted_out) return;
-  if (parseInt(networkId) == CHAIN_ID) return;
+  console.log('💬', 'changed chain');
   $('#disconnect').click();
+  is_chain_ready(_ => $('#connect').click());
 });
 
 // web3 functions
@@ -156,12 +169,28 @@ function update_supply() {
       show_minted_out();
   });
 }
-async function switch_chain() {
-  // https://docs.metamask.io/wallet/reference/wallet_addethereumchain/
+function is_chain_ready(callback) {
+  let ready = parseInt(raw_chain_id) == CHAIN_ID;
+  if (ready && callback) callback();
+  return ready;
+}
+function handle_chain_exception(err) {
+  let msg = `Please change network to [${CHAIN_NAME}] before mint.`;
+  alert(`${msg}\n\n----- Error Info -----\n[${err.code}] ${err.message}`);
+  $('#connect').removeClass('disabled');
+}
+async function validate_chain() {
   // https://ethereum.stackexchange.com/questions/134610/metamask-detectethereumprovider-check-is-connected-to-specific-chain
   let { chainId } = await provider.getNetwork();
-  chainId = parseInt(chainId);
-  if (chainId == CHAIN_ID) return;
+  raw_chain_id = chainId;
+  let ok = is_chain_ready();
+  let msg = ok ? null : `Please change network to [${CHAIN_NAME}] before mint.`;
+  return [ ok, msg ];
+}
+async function switch_chain() {
+  // https://docs.metamask.io/wallet/reference/wallet_addethereumchain/
+  let [ok, _] = await validate_chain();
+  if (ok) return false;
   // switch chain
   try {
     await window.ethereum.request({
@@ -172,37 +201,45 @@ async function switch_chain() {
         }
       ]
     });
+    return true;
   }
   // if chain not found, add chain
   catch(error) {
-    console.log(error);
-    if (error.code != 4902) {
-      return; // 4902 -- chain not added
-    }
-    await window.ethereum.request({
-      "method": "wallet_addEthereumChain",
-      "params": [
-        {
-          "chainId": "0x" + CHAIN_ID.toString(16),
-          "chainName": CHAIN_NAME,
-          "rpcUrls": [
-            CHAIN_RPC,
-          ],
-          //"iconUrls": [
-          //  "https://xdaichain.com/fake/example/url/xdai.svg",
-          //  "https://xdaichain.com/fake/example/url/xdai.png"
-          //],
-          "nativeCurrency": {
-            "name": CHAIN_SYMBOL,
-            "symbol": CHAIN_SYMBOL,
-            "decimals": 18
-          },
-          "blockExplorerUrls": [
-            CHAIN_EXPLORER,
+    if (error.code == 4902) { // chain not added
+      try {
+        await window.ethereum.request({
+          "method": "wallet_addEthereumChain",
+          "params": [
+            {
+              "chainId": "0x" + CHAIN_ID.toString(16),
+              "chainName": CHAIN_NAME,
+              "rpcUrls": [
+                CHAIN_RPC,
+              ],
+              //"iconUrls": [
+              //  "https://xdaichain.com/fake/example/url/xdai.svg",
+              //  "https://xdaichain.com/fake/example/url/xdai.png"
+              //],
+              "nativeCurrency": {
+                "name": CHAIN_SYMBOL,
+                "symbol": CHAIN_SYMBOL,
+                "decimals": 18
+              },
+              "blockExplorerUrls": [
+                CHAIN_EXPLORER,
+              ]
+            }
           ]
-        }
-      ]
-    });
+        });
+      }
+      catch(error) {
+        handle_chain_exception(error);
+      }
+    }
+    else {
+      handle_chain_exception(error);
+    }
+    return true;
   }
 }
 async function mint_by_gas_rate(contract, qty, proof, gas_rate=1) {
