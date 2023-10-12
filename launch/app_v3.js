@@ -21,6 +21,12 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 
 // connect button
 $('#connect').click(async _ => {
+  if (window.ethereum === undefined) {
+    alert('Please open by MetaMask browser');
+    return;
+  }
+
+  // press button effect
   $('#connect').addClass('disabled');
 
   // connect metamask
