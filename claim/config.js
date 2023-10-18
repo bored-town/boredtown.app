@@ -13,4 +13,4 @@ const MINT_GAS_RATE   = 1;
 const PROOF_URL       = null;
 
 // twitter
-const TWEET_TEXT      = `*** claim success message (multi-lines support) ***`;
+const TWEET_TEXT      = `Just claimed my $OP rewards from voting in the Bored Town x Optimism Art Contest! 🚀🎨 Keep an eye out for upcoming minting and trading events from @BoredTownNFT, featuring even more exciting rewards!`;
