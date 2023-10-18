@@ -12,7 +12,7 @@ const CONTRACT_ADDR   = "0x90Fb81cA2FEC713C9c6b4b2694eDed668b85d5Ed";
 const MINT_GAS_RATE   = 1;
 
 // whitelist
-const PROOF_URL       = null;
+const PROOF_URL       = "https://diewland.github.io/proof-cdn/boredtown-full/"; // null -- public
 
 // twitter
 const TWEET_TEXT      = `I just minted “Make Art, Not ...” from @BoredTownNFT
