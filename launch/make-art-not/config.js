@@ -3,7 +3,7 @@ const CHAIN_NAME      = "Scroll Mainnet";
 const CHAIN_RPC       = "https://rpc.scroll.io";
 const CHAIN_ID        = 534352;
 const CHAIN_SYMBOL    = "ETH";
-const CHAIN_EXPLORER  = "https://blockscout.scroll.io";
+const CHAIN_EXPLORER  = "https://scrollscan.com";
 
 // contract
 const MAX_SUPPLY      = 8_888;
