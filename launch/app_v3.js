@@ -260,6 +260,12 @@ async function mint_by_gas_rate(contract, qty, proof, gas_rate=1) {
     return mint_fn.send(...params, { gasLimit: gas_limit });
   }
 }
+async function load_contract_obj() { // for console use
+  provider = new ethers.BrowserProvider(window.ethereum)
+  signer = await provider.getSigner();
+  contract = new ethers.Contract(CONTRACT_ADDR, CONTRACT_ABI, signer);
+  console.log('done');
+}
 
 // common
 function short_addr(addr) {
