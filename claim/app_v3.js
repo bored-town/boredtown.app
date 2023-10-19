@@ -3,8 +3,6 @@ let provider = null;
 let signer = null;
 let wallet = null;
 let contract = null;
-let addr_proof = [];
-let proof_cache = {};
 let raw_chain_id = null;
 
 // main
@@ -34,114 +32,71 @@ $('#connect').click(async _ => {
   if (changed) return;
 
   console.log('💬', 'connecting wallet..');
+  contract = new ethers.Contract(CONTRACT_ADDR, CONTRACT_ABI, signer);
 
-  // 1) check mint enabled
-  /* reduce page load
-  let mint_enabled = await reader.getFunction('mintEnabled').staticCall();
-  if (!mint_enabled) {
-    show_mint_disabled();
-    return;
-  }
-  */
-
-  // 2) check whitelist
-  if (PROOF_URL != null) {
-    let mm_addr = signer.address.toLowerCase();
-    let c1 = mm_addr[2]; // 0x[_]
-    let proofs = proof_cache[c1];
-    if (!proofs) {
-      let url = PROOF_URL + `${c1}.json?t=${+(new Date())}`;
-      try {
-        proofs = await $.get(url);
-      }
-      catch (err) {
-        console.error(err);
-        proofs = {};
-      }
-      proof_cache[c1] = proofs;
-    }
-    addr_proof = proofs[mm_addr] || [];
-    let pass = addr_proof.length > 0;
-    console.log(addr_proof, proof_cache);
-    if (!pass) {
-      show_wl_only();
-      return;
-    }
-  }
-
-  // get remaining qty
-  let minted_qty = await reader.getFunction('numberMinted').staticCall(signer.address);
-  let remaining_qty = Math.min(MINT_PER_WALLET - parseInt(minted_qty), rsupply);
+  // get claimable token
+  let raw_qty = await contract.getFunction('claimableTokens').staticCall(signer.address);
+  let qty = raw2float(raw_qty);
 
   // update connect/disconnect buttons
   hide_connect();
   show_disconnect();
 
-  // 1) mintable
-  if (remaining_qty > 0) {
-    $('#mint')
-      .text(`Mint x${remaining_qty} (Free)`)
-      .attr('qty', remaining_qty)
-      .removeClass('d-none');
-  }
-  // 2) minted
-  else {
-    show_minted();
-  }
+  // update claim button
+  $('#claim')
+    .text(`Claim ${qty} ${TOKEN_NAME}`)
+    .removeClass('d-none');
 });
 $('#disconnect').click(_ => {
   $('#connect')
     .removeClass('disabled')
     .removeClass('d-none');
-  $('#mint')
+  $('#claim')
     .removeClass('disabled')
     .addClass('d-none');
-  $('#minting').addClass('d-none');
+  $('#claiming').addClass('d-none');
   $('#msg').addClass('d-none');
   $('#disconnect').addClass('d-none');
   tweet_modal.hide();
 });
 
-// mint button
-$('#mint').click(async _ => {
-  // recheck chain before mint
+// claim button
+$('#claim').click(async _ => {
+  // recheck chain before claim
   let [ok, msg] = await validate_chain();
   if (!ok) {
     alert(msg);
     return;
   }
-  $('#mint').addClass('d-none');
-  $('#minting').removeClass('d-none');
-  // mint
-  let qty = +$('#mint').attr('qty');
-  contract = new ethers.Contract(CONTRACT_ADDR, CONTRACT_ABI, signer);
-  mint_by_gas_rate(contract, qty, addr_proof, MINT_GAS_RATE)
+  $('#claim').addClass('d-none');
+  $('#claiming').removeClass('d-none');
+  // claim
+  claim_by_gas_rate(contract, MINT_GAS_RATE)
     .then(tx => {
       console.log(tx);
       return tx.wait();
     })
     .then(receipt => { // https://docs.ethers.org/v6/api/providers/#TransactionReceipt
       console.log(receipt);
-      $('#minting').addClass('d-none');
+      $('#claiming').addClass('d-none');
       if (receipt.status != 1) { // 1 success, 0 revert
         alert(JSON.stringify(receipt.toJSON()));
-        $('#mint').removeClass('d-none');
+        $('#claim').removeClass('d-none');
         return;
       }
       tweet_modal.show();
       play_party_effect();
-      show_minted();
+      show_claimed();
     })
     .catch(e => {
       alert(e);
-      $('#mint').removeClass('d-none');
-      $('#minting').addClass('d-none');
+      $('#claim').removeClass('d-none');
+      $('#claiming').addClass('d-none');
     });
 });
 
 // reconnect when switch account
 window.ethereum.on('accountsChanged', function (accounts) {
-  if (minted_out) return;
   console.log('💬', 'changed account');
   $('#disconnect').click();
   is_chain_ready(_ => $('#connect').click());
@@ -150,7 +105,6 @@ window.ethereum.on('accountsChanged', function (accounts) {
 // disconnect when switch chain
 window.ethereum.on('chainChanged', function (networkId) {
   raw_chain_id = networkId;
-  if (minted_out) return;
   console.log('💬', 'changed chain');
   $('#disconnect').click();
   is_chain_ready(_ => $('#connect').click());
@@ -163,7 +117,7 @@ function is_chain_ready(callback) {
   return ready;
 }
 function handle_chain_exception(err) {
-  let msg = `Please change network to [${CHAIN_NAME}] before mint.`;
+  let msg = `Please change network to [${CHAIN_NAME}] before claim.`;
   alert(`${msg}\n\n----- Error Info -----\n[${err.code}] ${err.message}`);
   $('#connect').removeClass('disabled');
 }
@@ -172,7 +126,7 @@ async function validate_chain() {
   let { chainId } = await provider.getNetwork();
   raw_chain_id = chainId;
   let ok = is_chain_ready();
-  let msg = ok ? null : `Please change network to [${CHAIN_NAME}] before mint.`;
+  let msg = ok ? null : `Please change network to [${CHAIN_NAME}] before claim.`;
   return [ ok, msg ];
 }
 async function switch_chain() {
@@ -230,22 +184,26 @@ async function switch_chain() {
     return true;
   }
 }
-async function mint_by_gas_rate(contract, qty, proof, gas_rate=1) {
+async function claim_by_gas_rate(contract, gas_rate=1) {
   if (gas_rate == 1) {
-    return contract.getFunction('mint').send(qty, proof);
+    return contract.getFunction('claim').send();
   }
   else {
-    let mint_fn = contract.getFunction('mint');
-    let params = [ qty, proof ];
-    let gas_limit = await mint_fn.estimateGas(...params);
+    let fn = contract.getFunction('claim');
+    let params = [];
+    let gas_limit = await fn.estimateGas(...params);
     gas_limit = Math.ceil(Number(gas_limit) * gas_rate);
-    return mint_fn.send(...params, { gasLimit: gas_limit });
+    return fn.send(...params, { gasLimit: gas_limit });
   }
 }
 
 // common
 function short_addr(addr) {
   return addr.substr(0, 5) + '...' + addr.slice(-4);
+}
+function raw2float(raw) { // raw 18 decimals over Number.MAX_SAFE_INTEGER (9_007_199_254_740_991)
+  let first8 = Number(raw.toString().slice(0, -10));
+  return first8 / 100_000_000;
 }
 function play_party_effect() {
   party.confetti(document.body, {
@@ -266,7 +224,4 @@ function show_disconnect() {
   if (signer != null) btn.text(`Disconnect ${short_addr(signer.address)}`);
   return btn;
 }
-let show_minted = _ => show_msg('Minted');
-let show_wl_only = _ => show_msg("You're not eligible", true);
-let show_minted_out = _ => show_msg('Minted Out');
-let show_mint_disabled = _ => show_msg('Mint disabled');
+let show_claimed = _ => show_msg('Claimed');
