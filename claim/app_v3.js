@@ -202,8 +202,8 @@ function short_addr(addr) {
   return addr.substr(0, 5) + '...' + addr.slice(-4);
 }
 function raw2float(raw) { // raw 18 decimals over Number.MAX_SAFE_INTEGER (9_007_199_254_740_991)
-  let first8 = Number(raw.toString().slice(0, -10));
-  return first8 / 100_000_000;
+  let num = Number(raw.toString().slice(0, -10)); // remove last 10 zeros
+  return num / 100000000//0000000000;
 }
 function play_party_effect() {
   party.confetti(document.body, {

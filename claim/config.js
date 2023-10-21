@@ -6,7 +6,7 @@ const CHAIN_SYMBOL    = "ETH";
 const CHAIN_EXPLORER  = "https://goerli-optimism.etherscan.io";
 
 // contract
-const CONTRACT_ADDR   = "0x11Ec7F09C943372ca3290FD411fce2Ba60A15dB1";
+const CONTRACT_ADDR   = "0x850e458DFe1d5508795C87D6cbfe8B359bB0d54f";
 const TOKEN_NAME      = "OP";
 const MINT_GAS_RATE   = 1;
 
