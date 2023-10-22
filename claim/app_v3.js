@@ -95,20 +95,21 @@ $('#claim').click(async _ => {
     });
 });
 
-// reconnect when switch account
-window.ethereum.on('accountsChanged', function (accounts) {
-  console.log('💬', 'changed account');
-  $('#disconnect').click();
-  is_chain_ready(_ => $('#connect').click());
-});
-
-// disconnect when switch chain
-window.ethereum.on('chainChanged', function (networkId) {
-  raw_chain_id = networkId;
-  console.log('💬', 'changed chain');
-  $('#disconnect').click();
-  is_chain_ready(_ => $('#connect').click());
-});
+if (window.ethereum) {
+  // reconnect when switch account
+  window.ethereum.on('accountsChanged', function (accounts) {
+    console.log('💬', 'changed account');
+    $('#disconnect').click();
+    is_chain_ready(_ => $('#connect').click());
+  });
+  // disconnect when switch chain
+  window.ethereum.on('chainChanged', function (networkId) {
+    raw_chain_id = networkId;
+    console.log('💬', 'changed chain');
+    $('#disconnect').click();
+    is_chain_ready(_ => $('#connect').click());
+  });
+}
 
 // web3 functions
 function is_chain_ready(callback) {
