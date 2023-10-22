@@ -196,14 +196,28 @@ async function claim_by_gas_rate(contract, gas_rate=1) {
     return fn.send(...params, { gasLimit: gas_limit });
   }
 }
+async function load_contract_obj() { // for console use
+  provider = new ethers.BrowserProvider(window.ethereum)
+  signer = await provider.getSigner();
+  let [ok, msg] = await validate_chain();
+  if (!ok) { console.warn(msg); return; }
+  contract = new ethers.Contract(CONTRACT_ADDR, CONTRACT_ABI, signer);
+  console.log('done');
+}
+
+// number
+// raw 18 decimals over Number.MAX_SAFE_INTEGER (9_007_199_254_740_991)
+function raw2float(raw) {
+  let num = Number(raw.toString().slice(0, -9)); // remove last 9 zeros
+  return num / 1_000_000_000//_000_000_000;
+}
+function float2raw(f) { // 18 decimals from * 10^9 * 10^9
+  return BigInt(f * 1_000_000_000) * 1_000_000_000n;
+}
 
 // common
 function short_addr(addr) {
   return addr.substr(0, 5) + '...' + addr.slice(-4);
-}
-function raw2float(raw) { // raw 18 decimals over Number.MAX_SAFE_INTEGER (9_007_199_254_740_991)
-  let num = Number(raw.toString().slice(0, -10)); // remove last 10 zeros
-  return num / 100000000//0000000000;
 }
 function play_party_effect() {
   party.confetti(document.body, {
