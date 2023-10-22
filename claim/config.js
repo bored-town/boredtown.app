@@ -1,12 +1,12 @@
 // chain
-const CHAIN_NAME      = "OPGoerli Testnet";
-const CHAIN_RPC       = "https://goerli.optimism.io";
-const CHAIN_ID        = 420;
+const CHAIN_NAME      = "OP Mainnet";
+const CHAIN_RPC       = "https://mainnet.optimism.io";
+const CHAIN_ID        = 10;
 const CHAIN_SYMBOL    = "ETH";
-const CHAIN_EXPLORER  = "https://goerli-optimism.etherscan.io";
+const CHAIN_EXPLORER  = "https://optimistic.etherscan.io";
 
 // contract
-const CONTRACT_ADDR   = "0x850e458DFe1d5508795C87D6cbfe8B359bB0d54f";
+const CONTRACT_ADDR   = "0x5B1178581E6ADfa87f5Fd088C185Ec33f006BF2D";
 const TOKEN_NAME      = "OP";
 const MINT_GAS_RATE   = 1;
 
