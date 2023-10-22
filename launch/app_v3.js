@@ -108,14 +108,16 @@ $('#disconnect').click(_ => {
 
 // mint button
 $('#mint').click(async _ => {
+  $('#mint').addClass('d-none');
+  $('#minting').removeClass('d-none');
   // recheck chain before mint
   let [ok, msg] = await validate_chain();
   if (!ok) {
+    $('#mint').removeClass('d-none');
+    $('#minting').addClass('d-none');
     alert(msg);
     return;
   }
-  $('#mint').addClass('d-none');
-  $('#minting').removeClass('d-none');
   // mint
   let qty = +$('#mint').attr('qty');
   contract = new ethers.Contract(CONTRACT_ADDR, CONTRACT_ABI, signer);

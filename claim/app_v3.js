@@ -68,14 +68,16 @@ $('#disconnect').click(_ => {
 
 // claim button
 $('#claim').click(async _ => {
+  $('#claim').addClass('d-none');
+  $('#claiming').removeClass('d-none');
   // recheck chain before claim
   let [ok, msg] = await validate_chain();
   if (!ok) {
+    $('#claim').removeClass('d-none');
+    $('#claiming').addClass('d-none');
     alert(msg);
     return;
   }
-  $('#claim').addClass('d-none');
-  $('#claiming').removeClass('d-none');
   // claim
   claim_by_gas_rate(contract, MINT_GAS_RATE)
     .then(tx => {
