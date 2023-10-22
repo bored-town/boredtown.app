@@ -8,11 +8,13 @@ function chunk_arr(array, chunk_size) {
     }
     return chunks;
 }
-async function load_snapshot() {
+async function load_snapshot(chunk_index=null, chunk_size=1000) {
   let url = SNAPSHOT_URL + `?t=${+(new Date())}`;
   let data = await $.get(url);
   data = data.split('\n').filter(r => r).map(r => r.trim().split(','));
-
+  if (chunk_index != null) {
+    data = chunk_arr(data, chunk_size)[chunk_index];
+  }
   console.log('snapshot data');
   console.log(data);
 
