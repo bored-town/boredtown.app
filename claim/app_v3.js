@@ -21,8 +21,7 @@ $('#connect').click(async _ => {
   }
 
   // press button effect
-  $('#connect').addClass('d-none');
-  $('#claiming').removeClass('d-none');
+  $('#connect').addClass('disabled');
 
   // connect metamask
   provider = new ethers.BrowserProvider(window.ethereum)
@@ -40,17 +39,12 @@ $('#connect').click(async _ => {
   let qty = raw2float(raw_qty);
 
   // update connect/disconnect buttons
-  $('#claiming').addClass('d-none');
+  hide_connect();
   show_disconnect();
 
   // update claim button
-  let msg = 'You are not eligible';
-  if (qty > 0)  {
-    msg = `Claim ${qty} ${TOKEN_NAME}`;
-    //play_party_effect();
-  }
   $('#claim')
-    .text(msg)
+    .text(`Claim ${qty} ${TOKEN_NAME}`)
     .removeClass('d-none');
 });
 $('#disconnect').click(_ => {
