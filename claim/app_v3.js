@@ -43,8 +43,13 @@ $('#connect').click(async _ => {
   show_disconnect();
 
   // update claim button
+  let msg = 'Nothing to claim';
+  if (qty > 0)  {
+    msg = `Claim ${qty} ${TOKEN_NAME}`;
+    //play_party_effect();
+  }
   $('#claim')
-    .text(`Claim ${qty} ${TOKEN_NAME}`)
+    .text(msg)
     .removeClass('d-none');
 });
 $('#disconnect').click(_ => {
