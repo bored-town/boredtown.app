@@ -75,7 +75,8 @@ $('#connect').click(async _ => {
 
   // get remaining qty
   let minted_qty = await reader.getFunction('numberMinted').staticCall(signer.address);
-  let remaining_qty = Math.min(MINT_PER_WALLET - parseInt(minted_qty), rsupply);
+  let remaining_qty = MINT_PER_WALLET - parseInt(minted_qty);
+  if (MAX_SUPPLY > 0) remaining_qty = Math.min(remaining_qty, rsupply);
 
   // update connect/disconnect buttons
   hide_connect();
@@ -166,17 +167,26 @@ if (window.ethereum) {
 // web3 functions
 function update_supply() {
   $('#supply').html('Minted: ...');
-  reader.getFunction('remainingSupply').staticCall().then(s => {
-    rsupply = parseInt(s);
-    let minted = MAX_SUPPLY - parseInt(rsupply);
-    $('#supply').html(`Minted: ${minted}/${MAX_SUPPLY}`);
-    // minted out ?
-    minted_out = minted >= MAX_SUPPLY;
-    if (!minted_out)
+  if (MAX_SUPPLY > 0) {
+    reader.getFunction('remainingSupply').staticCall().then(s => {
+      rsupply = parseInt(s);
+      let minted = MAX_SUPPLY - rsupply;
+      $('#supply').html(`Minted: ${minted}/${MAX_SUPPLY}`);
+      // minted out ?
+      minted_out = minted >= MAX_SUPPLY;
+      if (!minted_out)
+        $('#connect').removeClass('disabled');
+      else
+        show_minted_out();
+    });
+  }
+  else { // open edition
+    reader.getFunction('totalSupply').staticCall().then(s => {
+      let minted = parseInt(s);
+      $('#supply').html(`Minted: ${minted}/∞`);
       $('#connect').removeClass('disabled');
-    else
-      show_minted_out();
-  });
+    });
+  }
 }
 function is_chain_ready(callback) {
   let ready = parseInt(raw_chain_id) == CHAIN_ID;
