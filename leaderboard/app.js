@@ -21,7 +21,9 @@ async function load_snapshot(chunk_index=null, chunk_size=1000) {
 }
 
 function render_table(chunk, q) {
-  let new_chunk = q ? chunk.filter(r => r[1].indexOf(q) > -1) : chunk;
+  let new_chunk = q
+    ? chunk.filter(r => r[1].toLowerCase().indexOf(q.toLowerCase()) > -1)
+    : chunk;
   $('.leaderboard tbody').html('');
   new_chunk.forEach(r => {
     let trade = 'soon' // TODO r[3];
