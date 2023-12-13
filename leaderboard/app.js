@@ -20,15 +20,10 @@ async function load_snapshot(chunk_index=null, chunk_size=1000) {
   return data;
 }
 
-let data = [];
-
-$(async _ => {
-  // load snapshot data
-  data = await load_snapshot();
-  // render screen
-  $('.last-modified').html(data[0]);
+function render_table(chunk, q) {
+  let new_chunk = q ? chunk.filter(r => r[1].indexOf(q) > -1) : chunk;
   $('.leaderboard tbody').html('');
-  data.slice(1).forEach(r => {
+  new_chunk.forEach(r => {
     let trade = 'soon' // TODO r[3];
     let bonus = r[4] == 'True' ? 'Yes' : 'No';
     $('.leaderboard tbody').append(`
@@ -42,4 +37,20 @@ $(async _ => {
       </tr>
     `);
   });
+}
+
+let score_data = [];
+
+$(async _ => {
+  // load snapshot data
+  score_data = await load_snapshot();
+  let ts = score_data.shift();
+  // render screen
+  $('.last-modified').html(ts);
+  render_table(score_data);
+});
+
+$('#btn-search').click(_ => {
+  let q = $('#txt-search').val().trim();
+  render_table(score_data, q);
 });
