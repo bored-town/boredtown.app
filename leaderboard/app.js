@@ -26,8 +26,8 @@ function render_table(chunk, q) {
     : chunk;
   $('.leaderboard tbody').html('');
   new_chunk.forEach(r => {
-    let trade = r[3];
-    let bonus = r[4] == 'True' ? 'Yes' : 'No';
+    let trade = 'pending'; //r[3];
+    let bonus = r[4] == 'True' ? '1/1' : '';
     let points = 'pending';
     let op_reward = 'pending';
     $('.leaderboard tbody').append(`
