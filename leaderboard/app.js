@@ -26,8 +26,10 @@ function render_table(chunk, q) {
     : chunk;
   $('.leaderboard tbody').html('');
   new_chunk.forEach(r => {
-    let trade = 'soon' // TODO r[3];
+    let trade = r[3];
     let bonus = r[4] == 'True' ? 'Yes' : 'No';
+    let points = 'pending';
+    let op_reward = 'pending';
     $('.leaderboard tbody').append(`
       <tr>
         <th scope="row">${r[0]}</th>
@@ -35,7 +37,8 @@ function render_table(chunk, q) {
         <td>${r[2]}</td>
         <td>${trade}</td>
         <td>${bonus}</td>
-        <td>${r[5]}</td>
+        <td>${points}</td>
+        <td>${op_reward}</td>
       </tr>
     `);
   });
@@ -47,6 +50,9 @@ $(async _ => {
   // load snapshot data
   score_data = await load_snapshot();
   let ts = score_data.shift();
+  // remove loading
+  $('.loading').addClass('d-none');
+  $('.table-responsive').removeClass('d-none');
   // render screen
   $('.last-modified').html(ts);
   render_table(score_data);
