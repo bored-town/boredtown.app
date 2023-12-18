@@ -26,10 +26,10 @@ function render_table(chunk, q) {
     : chunk;
   $('.leaderboard tbody').html('');
   new_chunk.forEach(r => {
-    let trade = 'pending'; //r[3];
+    let trade = r[3];
     let bonus = r[4] == 'True' ? '1/1' : '';
-    let points = 'pending';
-    let op_reward = 'pending';
+    let points = r[5];
+    let op_reward = r[6] || 'soon';
     $('.leaderboard tbody').append(`
       <tr>
         <th scope="row">${r[0]}</th>
