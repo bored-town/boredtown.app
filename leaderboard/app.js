@@ -28,7 +28,7 @@ function render_table(chunk, q) {
   new_chunk.forEach(r => {
     let trade = r[3];
     let bonus = r[4] == 'True' ? '1/1' : '';
-    let points = r[5];
+    let points = r[5] || 'soon';
     let op_reward = r[6] || 'soon';
     $('.leaderboard tbody').append(`
       <tr>
