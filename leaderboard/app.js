@@ -54,7 +54,8 @@ $(async _ => {
   $('.loading').addClass('d-none');
   $('.table-responsive').removeClass('d-none');
   // render screen
-  $('.last-modified').html(ts);
+  let sync_text = `Zonic synced: ${ts[0].split(': ')[1]}`;
+  $('.last-modified').html(sync_text);
   render_table(score_data);
 });
 
