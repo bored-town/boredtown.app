@@ -6,7 +6,7 @@ const CHAIN_SYMBOL    = "ETH";
 const CHAIN_EXPLORER  = "https://optimistic.etherscan.io";
 
 // contract
-const CONTRACT_ADDR   = "0x5B1178581E6ADfa87f5Fd088C185Ec33f006BF2D"; // TODO
+const CONTRACT_ADDR   = "0x0ff79617696445C4a0cbf48Bc1C23D5cbB65D335";
 const TOKEN_NAME      = "OP";
 const MINT_GAS_RATE   = 1;
 
