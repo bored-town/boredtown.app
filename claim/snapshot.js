@@ -1,4 +1,4 @@
-const SNAPSHOT_URL = 'https://diewland.github.io/proof-cdn/claim/btac23voters.csv';
+const SNAPSHOT_URL = 'https://bored-town.github.io/cdn/claim/btac23voters.csv';
 const TOKEN_PER_VOTE = 2.5;
 
 function chunk_arr(array, chunk_size) {

@@ -1,5 +1,4 @@
-const SNAPSHOT_URL = 'https://diewland.github.io/proof-cdn/claim/btac23voters.csv';
-const TOKEN_PER_VOTE = 2.5;
+const SNAPSHOT_URL = 'https://bored-town.github.io/cdn/claim/btac23minttrade.csv';
 
 function chunk_arr(array, chunk_size) {
     const chunks = [];
@@ -12,6 +11,7 @@ async function load_snapshot(chunk_index=null, chunk_size=1000) {
   let url = SNAPSHOT_URL + `?t=${+(new Date())}`;
   let data = await $.get(url);
   data = data.split('\n').filter(r => r).map(r => r.trim().split(','));
+  data.shift(); // remove header
   if (chunk_index != null) {
     data = chunk_arr(data, chunk_size)[chunk_index];
   }
@@ -21,9 +21,8 @@ async function load_snapshot(chunk_index=null, chunk_size=1000) {
   let addrs = [];
   let amounts = [];
   data.forEach(r => {
-    let vote = parseInt(r[7]);
-    let amount = vote * TOKEN_PER_VOTE;
-    addrs.push(r[0]);
+    let amount = toFixed(r[6], 3); // make sure 3 digits float
+    addrs.push(r[1]);
     amounts.push(float2raw(amount));
   });
 

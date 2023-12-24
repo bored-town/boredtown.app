@@ -220,7 +220,10 @@ function raw2float(raw) {
   return num / 1_000_000_000//_000_000_000;
 }
 function float2raw(f) { // 18 decimals from * 10^9 * 10^9
-  return BigInt(f * 1_000_000_000) * 1_000_000_000n;
+  return BigInt(parseInt(f * 1_000_000_000)) * 1_000_000_000n;
+}
+function toFixed(float_str, digits) {
+  return parseFloat(parseFloat(float_str).toFixed(digits));
 }
 
 // common
