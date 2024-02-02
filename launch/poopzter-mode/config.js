@@ -12,7 +12,7 @@ const CONTRACT_ADDR   = "0xc14F462E63f36D9bE62b2Fbb7595E844d3bc18Ee";
 const MINT_GAS_RATE   = 1;
 
 // whitelist
-const PROOF_URL       = null;
+const PROOF_URL       = "https://bored-town.github.io/cdn/bt-full-feb24/"; // null -- public
 
 // twitter
 const TWEET_TEXT      = `I just minted "Poopzter" from @BoredTownNFT 👇
