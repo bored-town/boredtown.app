@@ -1,4 +1,5 @@
-const SNAPSHOT_URL = 'https://bored-town.github.io/cdn/claim/btac23minttrade.csv';
+const SNAPSHOT_URL = 'https://bored-town.github.io/op-airdrop4/master.csv'
+const ITEM_LIMIT   = 1_000;
 
 function chunk_arr(array, chunk_size) {
     const chunks = [];
@@ -21,27 +22,26 @@ async function load_snapshot(chunk_index=null, chunk_size=1000) {
 }
 
 function render_table(chunk, q) {
+  let html = '';
   let new_chunk = q
     ? chunk.filter(r => r[1].toLowerCase().indexOf(q.toLowerCase()) > -1)
     : chunk;
-  $('.leaderboard tbody').html('');
+  new_chunk = new_chunk.slice(0, ITEM_LIMIT); // top N addresses
   new_chunk.forEach(r => {
-    let trade = r[3];
-    let bonus = r[4] == 'True' ? '1/1' : '';
-    let points = r[5] || 'soon';
-    let op_reward = r[6] || 'soon';
-    $('.leaderboard tbody').append(`
+    let fields = '';
+    for (let i=4; i<=22; i++) {
+      fields += `<td>${r[i]}</td>`;
+    }
+    html += `
       <tr>
         <th scope="row">${r[0]}</th>
         <td>${r[1]}</td>
-        <td>${r[2]}</td>
-        <td>${trade}</td>
-        <td>${bonus}</td>
-        <td>${points}</td>
-        <td>${op_reward}</td>
+        <td>${r[3]}</td>
+        ${fields}
       </tr>
-    `);
+    `;
   });
+  $('.leaderboard tbody').html(html);
 }
 
 let score_data = [];
@@ -54,7 +54,7 @@ $(async _ => {
   $('.loading').addClass('d-none');
   $('.table-responsive').removeClass('d-none');
   // render screen
-  let sync_text = `Zonic synced: ${ts[0].split(': ')[1]}`;
+  let sync_text = `Top ${ITEM_LIMIT} of ${score_data.length} addresses`;
   $('.last-modified').html(sync_text);
   render_table(score_data);
 });
