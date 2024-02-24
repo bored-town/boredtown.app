@@ -36,7 +36,7 @@ function render_table(chunk, q) {
       <tr>
         <th scope="row">${r[0]}</th>
         <td>${r[1]}</td>
-        <td>${r[3]}</td>
+        <td class="text-warning">${r[3]}</td>
         ${fields}
       </tr>
     `;
