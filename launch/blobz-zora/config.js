@@ -1,14 +1,14 @@
-// chain *** TODO ***
-const CHAIN_NAME      = "Sepolia Testnet";
-const CHAIN_RPC       = "https://eth-sepolia.g.alchemy.com/v2/ImOC9kCyGPgZDj0dEAAyTc9v5_tGO1Z7";
-const CHAIN_ID        = 11155111;
+// chain
+const CHAIN_NAME      = "Zora Mainnet";
+const CHAIN_RPC       = "https://rpc.zora.energy";
+const CHAIN_ID        = 7777777;
 const CHAIN_SYMBOL    = "ETH";
-const CHAIN_EXPLORER  = "https://sepolia.etherscan.io";
+const CHAIN_EXPLORER  = "https://explorer.zora.energy";
 
 // contract
 const MAX_SUPPLY      = 0; // open edition
 const MINT_PER_WALLET = 5;
-const CONTRACT_ADDR   = "0x89B6Ef94Cf87f2Ddd1c97D55a45B8fF177582b71"; // *** TODO ***
+const CONTRACT_ADDR   = "0x28e43Bb3eE202E1dA587c88B0a8398309e8D4c2D";
 const MINT_GAS_RATE   = 1;
 
 // whitelist

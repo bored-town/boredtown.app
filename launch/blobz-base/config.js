@@ -1,14 +1,14 @@
-// chain *** TODO ***
-const CHAIN_NAME      = "Sepolia Testnet";
-const CHAIN_RPC       = "https://eth-sepolia.g.alchemy.com/v2/ImOC9kCyGPgZDj0dEAAyTc9v5_tGO1Z7";
-const CHAIN_ID        = 11155111;
+// chain
+const CHAIN_NAME      = "Base Mainnet";
+const CHAIN_RPC       = "https://mainnet.base.org";
+const CHAIN_ID        = 8453;
 const CHAIN_SYMBOL    = "ETH";
-const CHAIN_EXPLORER  = "https://sepolia.etherscan.io";
+const CHAIN_EXPLORER  = "https://basescan.org";
 
 // contract
 const MAX_SUPPLY      = 0; // open edition
 const MINT_PER_WALLET = 5;
-const CONTRACT_ADDR   = "0x992A8Fa9C5b5C6bA2698255450fe306ba332aF8B"; // *** TODO ***
+const CONTRACT_ADDR   = "0x28e43Bb3eE202E1dA587c88B0a8398309e8D4c2D";
 const MINT_GAS_RATE   = 1;
 
 // whitelist
