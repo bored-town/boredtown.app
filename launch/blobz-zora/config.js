@@ -12,7 +12,7 @@ const CONTRACT_ADDR   = "0x28e43Bb3eE202E1dA587c88B0a8398309e8D4c2D";
 const MINT_GAS_RATE   = 1;
 
 // whitelist
-const PROOF_URL       = null; // *** TODO ***
+const PROOF_URL       = "https://bored-town.github.io/cdn/blobz/"; // null = public
 
 // twitter
 const TWEET_TEXT      = `Snagged my freemint Blobz NFT from @BoredTownNFT to celebrate the EIP-4844 'Dencun'! Gas fees were minimal thanks to the upgrade.
