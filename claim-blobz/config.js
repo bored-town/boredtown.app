@@ -12,3 +12,6 @@ const MINT_GAS_RATE   = 1;
 
 // twitter
 const TWEET_TEXT      = `*** TODO ***`; // TODO
+
+// snapshot
+const SNAPSHOT_URL    = 'https://bored-town.github.io/op-airdrop4/master.csv' // *** TODO ***

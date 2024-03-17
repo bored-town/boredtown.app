@@ -1,5 +1,3 @@
-const SNAPSHOT_URL = 'https://bored-town.github.io/op-airdrop4/master.csv' // *** TODO ***
-
 function chunk_arr(array, chunk_size) {
     const chunks = [];
     for (let i = 0; i < array.length; i += chunk_size) {
