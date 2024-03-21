@@ -45,7 +45,7 @@ $('#connect').click(async _ => {
   // update claim button
   let msg = 'Nothing to claim';
   if (qty > 0)  {
-    msg = `Claim ${qty} ${TOKEN_NAME}`;
+    msg = `Claim ${qty.toLocaleString()} ${TOKEN_NAME}`;
     //play_party_effect();
   }
   $('#claim')
