@@ -19,7 +19,7 @@ async function load_snapshot(chunk_index=null, chunk_size=1000) {
   let addrs = [];
   let amounts = [];
   data.forEach(r => {
-    let amount = toFixed(r[2], 3); // make sure 3 digits float
+    let amount = toFixed(r[4], 3); // make sure 3 digits float
     addrs.push(r[1]);
     amounts.push(float2raw(amount));
   });
