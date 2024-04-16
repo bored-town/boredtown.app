@@ -14,4 +14,4 @@ const MINT_GAS_RATE   = 1;
 const TWEET_TEXT      = `Woohoo! Claimed my $JK rewards from a Jakaverse quest by @BLOBz4844 . Join the BLOBz community to discover more quests and ways to earn!`;
 
 // snapshot
-const SNAPSHOT_URL    = 'https://bored-town.github.io/cdn/blobz-mint/base.csv'; // TODO
+const SNAPSHOT_URL    = 'https://bored-town.github.io/cdn/jk-apr24.csv';

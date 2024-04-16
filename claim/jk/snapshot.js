@@ -9,7 +9,7 @@ async function load_snapshot(chunk_index=null, chunk_size=1000) {
   let url = SNAPSHOT_URL + `?t=${+(new Date())}`;
   let data = await $.get(url);
   data = data.split('\n').filter(r => r).map(r => r.trim().split(','));
-  data.shift(); // remove header
+  // data.shift(); // remove header
   if (chunk_index != null) {
     data = chunk_arr(data, chunk_size)[chunk_index];
   }
@@ -19,8 +19,8 @@ async function load_snapshot(chunk_index=null, chunk_size=1000) {
   let addrs = [];
   let amounts = [];
   data.forEach(r => {
-    let amount = toFixed(r[4], 3); // make sure 3 digits float *** TODO *** index: amount
-    addrs.push(r[1]); // *** TODO *** index: address
+    let amount = toFixed(r[1], 3); // make sure 3 digits float
+    addrs.push(r[0]);
     amounts.push(float2raw(amount));
   });
 
