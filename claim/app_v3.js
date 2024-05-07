@@ -91,7 +91,7 @@ $('#claim').click(async _ => {
         $('#claim').removeClass('d-none');
         return;
       }
-      tweet_modal.show();
+      if (TWEET_TEXT) tweet_modal.show();
       play_party_effect();
       show_claimed();
     })
