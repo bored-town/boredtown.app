@@ -11,7 +11,9 @@ const TOKEN_NAME      = "BLOBz";
 const MINT_GAS_RATE   = 1;
 
 // twitter
-const TWEET_TEXT      = null; // TODO
+const TWEET_TEXT      = `Just grabbed my $BLOBZ from @BLOBz4844: https://boredtown.app/claim/blobz-chap3/ & pumped to shape its future in the BLOBz DAO!
+
+Claim yours if you hold BLOBz NFTz on @ourzora or @modenetwork ! #BLOBz #DAO`;
 
 // snapshot
-const SNAPSHOT_URL    = null; // TODO
+const SNAPSHOT_URL    = "https://bored-town.github.io/cdn/blobz-mint/chap3.csv";
