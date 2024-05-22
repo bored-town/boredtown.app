@@ -36,7 +36,7 @@ $('#connect').click(async _ => {
 
   // get claimable token
   let raw_qty = await contract.getFunction('claimableTokens').staticCall(signer.address);
-  let qty = +raw_qty * 1_000_000; // 1M unit
+  let qty = Number(raw_qty) * 1_000_000; // 1M unit
 
   // update connect/disconnect buttons
   hide_connect();
