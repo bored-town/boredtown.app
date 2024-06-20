@@ -11,7 +11,9 @@ const TOKEN_NAME      = "BLOBz";
 const MINT_GAS_RATE   = 1;
 
 // twitter
-const TWEET_TEXT      = `___TWEET___`;
+const TWEET_TEXT      = `Calling all $BLOBZ heroes!  Your quest rewards are here! Claim your $BLOBZ before June 27th: https://boredtown.app/claim/blobz-bounty
+
+Don't miss out, and stay tuned for the upcoming $BLOBZ trading event!`;
 
 // snapshot
 const SNAPSHOT_URL    = "https://bored-town.github.io/blobzb4dex/master.csv";
