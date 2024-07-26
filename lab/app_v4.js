@@ -386,11 +386,3 @@ let free_mint = MINT_PRICE == 0;
 let paid_mint = MINT_PRICE > 0;
 let erc20_mint = TOKEN_SYMBOL != CHAIN_SYMBOL;
 let eth_mint  = TOKEN_SYMBOL == CHAIN_SYMBOL;
-
-// script
-function load_script(src, callback=null) {
-  var script = document.createElement('script');
-  script.src = src;
-  if (callback) script.onload = callback;
-  document.body.appendChild(script);
-}
