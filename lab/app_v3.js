@@ -133,7 +133,7 @@ $('#mint').click(async _ => {
   }
   let qty = +$('#mint').attr('qty');
   // prepare buy with ERC20
-  if (TOKEN_SYMBOL != CHAIN_SYMBOL) {
+  if (erc20_mint && paid_mint) {
     token = new ethers.Contract(TOKEN_ADDR, ERC20_ABI, signer);
     let balance = await token.getFunction('balanceOf').staticCall(signer.address);
     let allowance = await token.getFunction('allowance').staticCall(signer.address, CONTRACT_ADDR);
@@ -308,37 +308,25 @@ async function switch_chain() {
     return true;
   }
 }
-/*
 async function mint_by_gas_rate(contract, qty, proof, gas_rate=1) {
-  // TODO restore proof back
-  let wei = ethers.parseEther((MINT_PRICE * qty).toString());
-  // let wei = ethers.parseUnits((MINT_PRICE * qty).toString(), 'mwei'); -- 10^6
-  if (gas_rate == 1) {
-    return contract.getFunction('mint').send(qty, { value: wei });
-  }
-  else {
-    let mint_fn = contract.getFunction('mint');
-    let params = [ qty ];
-    let gas_limit = await mint_fn.estimateGas(...params);
-    gas_limit = Math.ceil(Number(gas_limit) * gas_rate);
-    return mint_fn.send(...params, { value: wei, gasLimit: gas_limit });
-  }
-}
-*/
-async function mint_by_gas_rate(contract, qty, proof, gas_rate=1) {
-  // TODO config between value & gasLimit
-  // TODO 1) paid mint ETH -> add wei param
-  // TODO 2) paid mint ERC20 -> no wei param
-  if (gas_rate == 1) {
+  if ((gas_rate == 1) && (erc20_mint || free_mint)) {
     return contract.getFunction('mint').send(qty, proof);
   }
-  else {
-    let mint_fn = contract.getFunction('mint');
-    let params = [ qty, proof ];
+  let mint_fn = contract.getFunction('mint');
+  let params = [ qty, proof ];
+  let custom = {};
+  // value
+  if (eth_mint && paid_mint) {
+    let wei = ethers.parseEther((MINT_PRICE * qty).toString());
+    custom.value = wei;
+  }
+  // gas rate
+  if (gas_rate != 1) {
     let gas_limit = await mint_fn.estimateGas(...params);
     gas_limit = Math.ceil(Number(gas_limit) * gas_rate);
-    return mint_fn.send(...params, { gasLimit: gas_limit });
+    custom.gasLimit = gas_limit;
   }
+  return mint_fn.send(...params, custom);
 }
 async function load_contract_obj() { // for console use
   provider = new ethers.BrowserProvider(window.ethereum)
@@ -361,7 +349,7 @@ function play_party_effect() {
 }
 function update_mint_button(qty) {
   let label = 'FREE';
-  if (MINT_PRICE > 0) {
+  if (paid_mint) {
     let sum_price = MINT_PRICE * qty;
     sum_price = sum_price.toLocaleString('en-US', { maximumFractionDigits: 6 });
     label = `${sum_price} ${TOKEN_SYMBOL}`;
@@ -392,3 +380,9 @@ let show_minted = _ => show_msg('Minted');
 let show_wl_only = _ => show_msg("You're not eligible", true);
 let show_minted_out = _ => show_msg('Minted Out');
 let show_mint_disabled = _ => show_msg('Mint disabled');
+
+// aliases
+let free_mint = MINT_PRICE == 0;
+let paid_mint = MINT_PRICE > 0;
+let erc20_mint = TOKEN_SYMBOL != CHAIN_SYMBOL;
+let eth_mint  = TOKEN_SYMBOL == CHAIN_SYMBOL;
