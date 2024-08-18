@@ -1,0 +1,46 @@
+html, body { height: 100%; }
+.links { margin: 10px 0px; }
+.links img { height: 16px; }
+p.card-text { max-height: 100px; overflow: scroll; }
+
+/* swap */
+body {
+  margin: 0px 15px;
+  background-color: #131313;
+}
+div.card {
+  width: 30rem;
+  height: fit-content;
+}
+.links {
+  position: absolute;
+  top: 0px;
+  right: 16px;
+}
+.input {
+  background-color: #1b1b1b;
+  padding: 16px;
+  border-radius: 16px;
+}
+.input input {
+  background-color: #1b1b1b;
+  border: 0px;
+  width: 100%;
+  font-size: 36px;
+  padding-left: 50px;
+}
+.input img.token {
+  position: absolute;
+  padding-top: 8px;
+  width: 40px;
+}
+.input .balance {
+  font-size: 14px;
+  text-align: right;
+}
+.sep {
+  text-align: center;
+}
+.sep i {
+  font-size: 1.5rem;
+}
