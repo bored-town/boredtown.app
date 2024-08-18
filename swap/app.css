@@ -39,8 +39,10 @@ div.card {
   text-align: right;
 }
 .sep {
+  margin: -15px 0px;
   text-align: center;
 }
 .sep i {
   font-size: 1.5rem;
+  background-color: #1b1b1b;
 }
