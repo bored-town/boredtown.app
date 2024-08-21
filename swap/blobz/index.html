@@ -41,45 +41,38 @@
           <!-- chain -->
           <img data-bs-toggle="tooltip" data-bs-title="OP Mainnet" src="https://optimistic.etherscan.io/assets/generic/html/favicon.ico">
           <!-- contract -->
-          <a data-bs-toggle="tooltip" data-bs-title="Contract" href="https://sepolia.etherscan.io/address/0x13d6c2fe8965a95d6875c230aa5efcf017c2aae4" target="_blank"><img src="https://etherscan.io/images/favicon3.ico"></a>
+          <a data-bs-toggle="tooltip" data-bs-title="Contract" href="https://sepolia.etherscan.io/address/0xd060bac99db5076fbfc861d7fcb6a870beb0c590" target="_blank"><img src="https://etherscan.io/images/favicon3.ico"></a>
         </div>
         <!-- inputs -->
         <div class="input sell">
-          Sell $USDC
+          Sell <span class="token">...</span>
           <div>
             <img class="token" src="../token_usdc.png">
             <input type="number" min="0" placeholder="0">
           </div>
-          <div class="balance">Balance: 0</div>
+          <div class="balance">Balance: <a href='#/'>0</a></div>
         </div>
         <div class="sep">
           <i class="bi bi-arrow-down-circle"></i>
         </div>
         <div class="input buy mb-2">
-          Buy $BLOBz
+          Buy <span class="token">...</span>
           <div>
             <img class="token" src="../token_blobz.png">
             <input type="number" min="0" placeholder="0">
           </div>
-          <div class="balance">Balance: 0</div>
+          <div class="balance">Balance: <a href='#/'>0</a></div>
         </div>
         <!-- button -->
-        <a id="connect" class="btn btn-primary w-100 disabled">Connect Wallet</a>
-        <input id="mint_qty" type="range" class="form-range d-none" min="1" max="1" step="1" value="1">
-        <a id="mint" class="btn btn-primary w-100 d-none">Mint</a>
-        <button id="minting" class="btn btn-primary w-100 d-none" type="button" disabled>
+        <a id="connect" class="btn btn-primary w-100">Connect Wallet</a>
+        <a id="swap" class="btn btn-primary w-100 d-none">Swap</a>
+        <button id="busy" class="btn btn-primary w-100 d-none" type="button" disabled>
           <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
           Processing
         </button>
         <a id="msg" class="btn btn-primary w-100 d-none disabled"></a>
         <div class="text-center mt-2"><a id="disconnect" class="text-secondary-emphasis d-none" role="button">Disconnect 0xabc..789</a></div>
       </div>
-      <!--
-      <div class="card-footer">
-        <i class="bi bi-egg-fill"></i>
-        Incubated by Bored Town
-      </div>
-      -->
     </div>
     <!-- modal -->
     <div class="modal fade" tabindex="-1">
@@ -99,6 +92,9 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.12.1/ethers.umd.min.js" integrity="sha512-e73T2EWkw8PZVlmYJl77YTCHY20/Z7oPCPOeKZGCulv9SEnLZEV3KLh27SJ9r0Q1HCPB/uVwnerv4b/Hkle6EA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
-    <!--script src="../app_v4_bundle.js"></script-->
+    <script src="./config.js"></script>
+    <script src="../abi_erc20.js"></script>
+    <script src="../abi_v4.js"></script>
+    <script src="../app_v4.js"></script>
   </body>
 </html>

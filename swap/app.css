@@ -38,6 +38,9 @@ div.card {
   font-size: 14px;
   text-align: right;
 }
+.input .balance a {
+  text-decoration: none;
+}
 .sep {
   margin: -15px 0px;
   text-align: center;
