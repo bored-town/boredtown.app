@@ -92,7 +92,7 @@ $('#swap').click(async _ => {
   let balance_text = $('.sell a').text();
   let sell_text = $('.sell input').val();
   if (balance_text === '...') return;
-  if (sell_text === '') return;
+  if (+sell_text <= 0) return;
 
   $('#swap').addClass('d-none');
   $('#busy').removeClass('d-none');
