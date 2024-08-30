@@ -75,8 +75,17 @@ $('#connect').click(async _ => {
   }
 
   // get remaining qty
-  let minted_qty = await reader.getFunction('numberMinted').staticCall(signer.address);
-  let remaining_qty = MINT_PER_WALLET - parseInt(minted_qty);
+  let remaining_qty = 0;
+  if (erc20_mint && paid_mint && !MINT_PER_WALLET) { // by ERC20 balance
+    let token_reader = new ethers.Contract(TOKEN_ADDR, ERC20_ABI, new ethers.JsonRpcProvider(CHAIN_RPC));
+    let balance = await token_reader.getFunction('balanceOf').staticCall(signer.address);
+    balance = ethers.formatUnits(balance.toString(), 18);
+    remaining_qty = Math.floor(balance / MINT_PRICE);
+  }
+  else { // by mint per wallet
+    let minted_qty = await reader.getFunction('numberMinted').staticCall(signer.address);
+    remaining_qty = MINT_PER_WALLET - parseInt(minted_qty);
+  }
   if (MAX_SUPPLY > 0) remaining_qty = Math.min(remaining_qty, rsupply);
 
   // update connect/disconnect buttons
