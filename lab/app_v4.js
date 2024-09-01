@@ -76,7 +76,7 @@ $('#connect').click(async _ => {
 
   // get remaining qty
   let remaining_qty = 0;
-  if (erc20_mint && paid_mint && !MINT_PER_WALLET) { // by ERC20 balance
+  if (erc20_mint && paid_mint_by_balance) { // by ERC20 balance
     let reader2 = new ethers.Contract(TOKEN_ADDR, ERC20_ABI, new ethers.JsonRpcProvider(CHAIN_RPC));
     let balance = await reader2.getFunction('balanceOf').staticCall(signer.address);
     balance = ethers.formatUnits(balance.toString(), 18);
@@ -103,7 +103,10 @@ $('#connect').click(async _ => {
   }
   // 2) minted
   else {
-    show_minted();
+    if (paid_mint_by_balance)
+      show_no_balance();
+    else
+      show_minted();
   }
 });
 $('#disconnect').click(_ => {
@@ -401,9 +404,11 @@ let show_minted = _ => show_msg('Minted');
 let show_wl_only = _ => show_msg("You're not eligible", true);
 let show_minted_out = _ => show_msg('Minted Out');
 let show_mint_disabled = _ => show_msg('Mint disabled');
+let show_no_balance = _ => show_msg('Insufficient balance');
 
 // aliases
 let free_mint = MINT_PRICE == 0;
 let paid_mint = MINT_PRICE > 0;
 let erc20_mint = TOKEN_SYMBOL != CHAIN_SYMBOL;
 let eth_mint  = TOKEN_SYMBOL == CHAIN_SYMBOL;
+let paid_mint_by_balance = paid_mint && (MINT_PER_WALLET === 0);
