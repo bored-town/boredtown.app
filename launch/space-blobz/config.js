@@ -18,4 +18,4 @@ const TOKEN_ADDR      = "0x08b6E54072DF901e07Ef6cb7C2abBda5099CFB55"; // TODO
 const PROOF_URL       = null;
 
 // twitter
-const TWEET_TEXT      = null; // TODO
+const TWEET_TEXT      = `Just traded my $BLOBZ from @BLOBZ4844 for a Space BLOBz NFT! 🚀🚀 Can't wait to claim $BLZ, which will be available for trading on @Base chain starting September 10th through @FWXFinance. Don't miss out!`;
