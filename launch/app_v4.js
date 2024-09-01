@@ -81,6 +81,7 @@ $('#connect').click(async _ => {
     let balance = await reader2.getFunction('balanceOf').staticCall(signer.address);
     balance = ethers.formatUnits(balance.toString(), 18);
     remaining_qty = Math.floor(balance / MINT_PRICE);
+    $('#balance').text(`Balance: ${format_num(balance)} ${TOKEN_SYMBOL}`).removeClass('d-none');
   }
   else { // by mint per wallet
     let minted_qty = await reader.getFunction('numberMinted').staticCall(signer.address);
@@ -121,6 +122,7 @@ $('#disconnect').click(_ => {
     .addClass('d-none');
   $('#minting').addClass('d-none');
   $('#msg').addClass('d-none');
+  $('#balance').addClass('d-none');
   $('#disconnect').addClass('d-none');
   tweet_modal.hide();
 });
