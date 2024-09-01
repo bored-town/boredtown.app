@@ -1,6 +1,6 @@
 // inject tier combobox
 $('.card-title').append(`
-<select class="tier float-end">
+<select class="tier float-end fs-6">
   <option value="s">Tier S 🏷️ 10B</option>
   <option value="a">Tier A 🏷️ 1B</option>
   <option value="b">Tier B 🏷️ 100M</option>
