@@ -8,6 +8,7 @@ const CHAIN_EXPLORER  = "https://optimistic.etherscan.io";
 // contract
 const MAX_SUPPLY      = 48_440;
 const MINT_PER_WALLET = 0; // unlimit
+const MINT_PER_TIME   = 100;
 const CONTRACT_ADDR   = "0x32f1B16434e919953B728e18594AAb38B816d97e";
 const MINT_GAS_RATE   = 1;
 const MINT_PRICE      = 10_000_000_000;

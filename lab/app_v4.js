@@ -88,6 +88,7 @@ $('#connect').click(async _ => {
     remaining_qty = MINT_PER_WALLET - parseInt(minted_qty);
   }
   if (MAX_SUPPLY > 0) remaining_qty = Math.min(remaining_qty, rsupply);
+  if (MINT_PER_TIME > 0) remaining_qty = Math.min(remaining_qty, MINT_PER_TIME);
 
   // update connect/disconnect buttons
   hide_connect();
