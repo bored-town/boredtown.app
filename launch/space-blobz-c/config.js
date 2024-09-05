@@ -19,4 +19,6 @@ const TOKEN_ADDR      = "0x3AA14Ed2d1A65a58DF0237fA84239F97fF4E9B42";
 const PROOF_URL       = null;
 
 // twitter
-const TWEET_TEXT      = `Just traded my $BLOBZ from @BLOBZ4844 for a Space BLOBz NFT! 🚀🚀 Can't wait to claim $BLZ, which will be available for trading on @Base chain starting September 10th through @FWXFinance. Don't miss out!`;
+const TWEET_TEXT      = `Just traded my $BLOBZ from @BLOBZ4844 for a Space BLOBz NFT! 🚀🚀 Can't wait to claim $BLZ, which will be available for trading on @Base chain starting September 10th through @FWXFinance. Don't miss out!
+
+https://boredtown.app/launch/space-blobz/`;
