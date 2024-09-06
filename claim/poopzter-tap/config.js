@@ -1,15 +1,15 @@
-// chain TODO
-const CHAIN_NAME      = "OP Sepolia";
-const CHAIN_RPC       = "https://sepolia.optimism.io";
-const CHAIN_ID        = 11155420;
+// chain
+const CHAIN_NAME      = "OP Mainnet";
+const CHAIN_RPC       = "https://mainnet.optimism.io";
+const CHAIN_ID        = 10;
 const CHAIN_SYMBOL    = "ETH";
-const CHAIN_EXPLORER  = "https://sepolia-optimistic.etherscan.io";
+const CHAIN_EXPLORER  = "https://optimistic.etherscan.io";
 
 // contract
-const CONTRACT_ADDR   = "0x1c6B779c27FC3D5e65e40b9849C30E2E43481698"; // TODO
+const CONTRACT_ADDR   = "0xd99b98D78FFBb36da88444edB4Bef8Ca830ecEEe";
 const CLAIM_AMOUNT    = 888;
 const TOKEN_SYMBOL    = "BLOBz";
-const TOKEN_ADDR      = "0x08b6E54072DF901e07Ef6cb7C2abBda5099CFB55"; // TODO
+const TOKEN_ADDR      = "0x3AA14Ed2d1A65a58DF0237fA84239F97fF4E9B42";
 const TOKEN_DECIMALS  = 18;
 const MINT_GAS_RATE   = 1;
 
