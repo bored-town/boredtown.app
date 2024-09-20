@@ -13,7 +13,8 @@ const TOKEN_DECIMALS  = 18;
 const MINT_GAS_RATE   = 1;
 
 // twitter
-const TWEET_TEXT      = null; // *** TODO ***
+const TWEET_TEXT      = `Just claimed $BLZ for Space BLOBz NFT holders!
+Follow @BLOBz4844 for the latest updates on how to collect your $BLOBZ rewards and exchange them for $BLZ in the next round.`;
 
 // snapshot
 const SNAPSHOT_URL    = "https://blobz-xyz.github.io/blz-space-airdrop/out.csv";
