@@ -13,7 +13,7 @@ const TOKEN_DECIMALS  = 6;
 const MINT_GAS_RATE   = 1;
 
 // twitter
-const TWEET_TEXT      = `*** TODO ***`;
+const TWEET_TEXT      = `Just claimed 10 USDC reward from @BLOBZ4844 x @avacusapp partnership campaign. Follow them for more upcoming events!`;
 
 // snapshot
 const SNAPSHOT_URL    = "https://blobz-xyz.github.io/avacus-winners/out.csv";
