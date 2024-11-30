@@ -6,7 +6,7 @@ const CHAIN_SYMBOL    = "ETH";
 const CHAIN_EXPLORER  = "https://basescan.org";
 
 // contract
-const CONTRACT_ADDR   = "0x4F30b348F2f0061a29d3E4501Dc4be80452a758a";
+const CONTRACT_ADDR   = "0xc41E990B0658dd50ADd9477F235Cb51e15f038DC";
 const TOKEN_SYMBOL    = "BLZ";
 const TOKEN_ADDR      = "0x8a526CEa5F2d080D48b88D9e1947FADf16e30494";
 const TOKEN_DECIMALS  = 18;
@@ -17,6 +17,6 @@ const TWEET_TEXT      = `Just claimed $BLZ for Space BLOBz NFT holders!
 Follow @BLOBz4844 for the latest updates on how to collect your $BLOBZ rewards and exchange them for $BLZ in the next round.`;
 
 // snapshot
-const SNAPSHOT_URL    = "https://blobz-xyz.github.io/blz-space-airdrop/20241112.csv";
+const SNAPSHOT_URL    = "https://blobz-xyz.github.io/blz-space-airdrop/20241128.csv";
 const SKIP_HEADER     = true;
 const DATA_INDEX      = 2;
