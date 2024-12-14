@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- collection name -->
+    <title>Rocketship Ticket Business Class</title>
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#b91d47">
+    <meta name="msapplication-TileColor" content="#b91d47">
+    <meta name="theme-color" content="#ffffff">
+    <!-- opengraph/twitter -->
+    <meta property="og:site_name" content="A collection of 5555 NFTs by @TheBoredStudio. No roadmap, no utility, just art 👹" />
+    <meta property="og:title" content="Rocketship Ticket Business Class" />
+    <meta property="og:description" content="The Rocketship Ticket Series is a reward for our early supporters, designed to onboard you into Boredtopia as a pioneer. These exclusive NFTs grant you unique perks, early access, and the opportunity to build wealth in this evolving world. Choose your class and enjoy tailored benefits!" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://boredtown.app/launch/rocketship-biz-metis" />
+    <meta property="og:image" content="https://boredtopia.github.io/rocketship-pass/biz_metis.gif" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@BoredTownNFT">
+    <meta name="twitter:title" content="Rocketship Ticket Business Class">
+    <meta name="twitter:description" content="The Rocketship Ticket Series is a reward for our early supporters, designed to onboard you into Boredtopia as a pioneer. These exclusive NFTs grant you unique perks, early access, and the opportunity to build wealth in this evolving world. Choose your class and enjoy tailored benefits!">
+    <meta name="twitter:creator" content="@BoredTownNFT">
+    <meta name="twitter:image:src" content="https://boredtopia.github.io/rocketship-pass/biz_metis.gif">
+    <meta name="twitter:domain" content="boredtown.app">
+    <!-- app -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="../app.css" rel="stylesheet">
+  </head>
+  <body class="d-flex justify-content-center align-items-center">
+    <div class="card" style="width: 20rem; height: fit-content;">
+      <img src="https://boredtopia.github.io/rocketship-pass/biz_metis.gif" class="card-img-top">
+      <div class="card-body">
+        <!-- collection name -->
+        <h5 class="card-title">Business Class</h5>
+        <h6 class="card-subtitle text-muted" id="supply">Minted: ...</h6>
+        <div class="links">
+          <!-- chain -->
+          <img data-bs-toggle="tooltip" data-bs-title="Metis Andromeda Mainnet" src="https://imgproxy-mainnet.routescan.io/vr6_QOUlpcrJ-IMGMNGDLYk5bM_Z8Jw02w-Y36lP4Ic/pr:thumb_32/aHR0cHM6Ly9jbXMtY2RuLmF2YXNjYW4uY29tL2NtczIvbWV0aXMuOTdkZTU2YmFiMDMyLnN2Zw">
+          <!-- contract -->
+          <a data-bs-toggle="tooltip" data-bs-title="Contract" href="https://explorer.metis.io/address/0x6AAD776eCCd74471683aCb1dAf38310Ce3b05a3c" target="_blank"><img src="https://etherscan.io/images/favicon3.ico"></a>
+          <!-- opensea -->
+          <a data-bs-toggle="tooltip" data-bs-title="OpenSea" href="https://opensea.io/collection/rocketship-biz-metis" target="_blank"><img src="https://opensea.io/static/images/favicon/32x32.png"></a>
+        </div>
+        <!-- description -->
+        <p class="card-text">The Rocketship Ticket Series is a reward for our early supporters, designed to onboard you into Boredtopia as a pioneer. These exclusive NFTs grant you unique perks, early access, and the opportunity to build wealth in this evolving world. Choose your class and enjoy tailored benefits!</p>
+        <a id="connect" class="btn btn-primary w-100 disabled">Connect Wallet</a>
+        <input id="mint_qty" type="range" class="form-range d-none" min="1" max="1" step="1" value="1">
+        <a id="mint" class="btn btn-primary w-100 d-none">Mint</a>
+        <button id="minting" class="btn btn-primary w-100 d-none" type="button" disabled>
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+          Processing
+        </button>
+        <a id="msg" class="btn btn-primary w-100 d-none disabled"></a>
+        <div id="balance" class="text-center d-none">Balance 9999 $BLOBz</div>
+        <div class="text-center mt-2"><a id="disconnect" class="text-secondary-emphasis d-none" role="button">Disconnect 0xabc..789</a></div>
+      </div>
+    </div>
+    <!-- modal -->
+    <div class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">🎉 Mint Successful</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-primary btn-tweet" target="_blank"><i class="bi bi-twitter"></i> Tweet to reveal a hidden message 🔍</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.12.1/ethers.umd.min.js" integrity="sha512-e73T2EWkw8PZVlmYJl77YTCHY20/Z7oPCPOeKZGCulv9SEnLZEV3KLh27SJ9r0Q1HCPB/uVwnerv4b/Hkle6EA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+    <script src="../app_v4_bundle.js"></script>
+    <script src="../rocketship_biz.js"></script>
+  </body>
+</html>
