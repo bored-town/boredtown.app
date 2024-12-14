@@ -79,7 +79,7 @@ $('#connect').click(async _ => {
   if (erc20_mint && paid_mint_by_balance) { // by ERC20 balance
     let reader2 = new ethers.Contract(TOKEN_ADDR, ERC20_ABI, new ethers.JsonRpcProvider(CHAIN_RPC));
     let balance = await reader2.getFunction('balanceOf').staticCall(signer.address);
-    balance = ethers.formatUnits(balance.toString(), 18);
+    balance = Number(ethers.formatUnits(balance.toString(), 18));
     remaining_qty = Math.floor(balance / MINT_PRICE);
     $('#balance').text(`Balance: ${format_num(balance)} ${TOKEN_SYMBOL}`).removeClass('d-none');
   }
