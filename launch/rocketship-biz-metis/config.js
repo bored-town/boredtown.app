@@ -21,4 +21,4 @@ const PROOF_URL       = "https://bored-town.github.io/cdn/rocketship-biz/";
 // twitter
 const TWEET_TEXT      = `🔴 I just minted my Rocketship Ticket at @BoredtopiaApp  Free mint, exclusive perks, and rewards—get yours before it’s gone!
 
-https://boredtown.app/launch/rocketship-eco-metis`;
+https://boredtown.app/launch/rocketship-biz-metis`;
