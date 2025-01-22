@@ -19,4 +19,8 @@ const TOKEN_ADDR      = null;
 const PROOF_URL       = null;
 
 // twitter
-const TWEET_TEXT      = null;
+const TWEET_TEXT      = `I just mint “CHESSS-S !”
+
+1st Collectible Art Toy from CAICA & Chiangmai Local Artists.
+
+Show this NFT at CAICA booth @ CNX NFT DAY, BLOCK MOUNTAIN 2025 for Lucky Draw.`;
