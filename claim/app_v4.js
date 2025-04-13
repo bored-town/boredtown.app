@@ -9,6 +9,7 @@ let raw_chain_id = null;
 // main
 let tweet_modal = new bootstrap.Modal($('.modal')[0]);
 $('.btn-tweet').attr('href', 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(TWEET_TEXT));
+$('#contract').attr('href', CHAIN_EXPLORER + '/address/' + CONTRACT_ADDR);
 
 // enable tooltips
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
